@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:template/pages/dashboard/dropdown.dart';
 import 'package:template/pages/dashboard/topbar.dart';
 
 class DashboardLayout extends StatefulWidget {
@@ -13,6 +14,7 @@ class DashboardLayout extends StatefulWidget {
 }
 
 class DashboardLayoutState extends State<DashboardLayout> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,10 +25,19 @@ class DashboardLayoutState extends State<DashboardLayout> {
       ),
       backgroundColor: Colors.grey[300],
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: widget.children,
-          ),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: widget.children,
+                ),
+              ),
+            ),
+
+            const TopbarDropdown(),
+          ],
         ),
       ),
     );

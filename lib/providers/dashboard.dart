@@ -6,6 +6,8 @@ class DashboardProvider extends ChangeNotifier {
     'sidebar': false,
   };
 
+  String page = 'dashboard';
+
   bool get topbarDropdown => _open['topbarDropdown']!;
   bool get sidebar => _open['sidebar']!;
 

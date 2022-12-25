@@ -11,7 +11,6 @@ class Topbar extends StatelessWidget {
 
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: 60,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -19,6 +18,11 @@ class Topbar extends StatelessWidget {
             onPressed: dashboard.toggleSidebar, 
             icon: const Icon(Icons.menu, color: Colors.white),
           ),
+
+          Text(dashboard.page[0].toUpperCase() + dashboard.page.substring(1), style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+          )),
     
           IconButton(
             onPressed: dashboard.toggleTopbarDropdown, 
