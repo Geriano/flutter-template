@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:template/pages/auth/forgot_password.dart';
 import 'package:template/pages/auth/login.dart';
 import 'package:template/pages/auth/register.dart';
 import 'package:template/pages/dashboard/index.dart';
@@ -20,5 +21,10 @@ final routes = {
     var auth = context.watch<AuthProvider>();
 
     return auth.authenticated ? const Dashboard() : const Register();
+  },
+  '/forgot-password': (BuildContext context) {
+    var auth = context.watch<AuthProvider>();
+
+    return auth.authenticated ? const Dashboard() : const ForgotPassword();
   },
 };
