@@ -8,21 +8,26 @@ import 'package:template/pages/auth/input.dart';
 import 'package:template/pages/auth/layout.dart';
 import 'package:template/providers/auth.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  LoginState createState() => LoginState();
+  RegisterState createState() => RegisterState();
 }
 
-class LoginState extends State<Login> {
+class RegisterState extends State<Register> {
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController passwordConfirmation = TextEditingController();
 
-  void login(AuthProvider auth) {
+  void register(AuthProvider auth) {
     final body = {
-      'username': username.text,
+      'name': name.text,
+      'email': email.text,
       'password': password.text,
+      'password_confirmation': passwordConfirmation.text,
     };
 
     print(body);
@@ -34,24 +39,27 @@ class LoginState extends State<Login> {
     
     return AuthLayout(
       child: AuthCard(
-        header: Text('Login', style: TextStyle(
+        header: Text('Register', style: TextStyle(
           fontSize: 32.sp,
           fontWeight: FontWeight.w800,
         )),
         body: Column(
           children: [
-            AuthInput(controller: username, label: 'Username', autofocus: true),
+            AuthInput(controller: name, label: 'Name', autofocus: true),
+            AuthInput(controller: email, label: 'Email'),
+            AuthInput(controller: username, label: 'Username'),
             AuthInput(controller: password, label: 'Password', obscureText: true),
-            AuthButton(onPressed: () => login(auth), text: 'Login'),
+            AuthInput(controller: passwordConfirmation, label: 'Password confirmation', obscureText: true),
+            AuthButton(onPressed: () => register(auth), text: 'Register'),
           ],
         ),
         footer: Column(
           children: [
             Row(
               children: [
-                const Text("Doesn't have account?"),
+                const Text("Already have account?"),
                 SizedBox(width: 5.h),
-                TextLink(onPressed: () => Navigator.pushNamed(context, '/register'), text: 'register'),
+                TextLink(onPressed: () => Navigator.pushNamed(context, '/login'), text: 'login'),
               ],
             ),
             SizedBox(height: 5.h),
