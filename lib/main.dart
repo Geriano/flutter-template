@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:template/pages/auth/login.dart';
-import 'package:template/pages/dashboard/index.dart';
-import 'package:template/providers/auth.dart';
-import 'package:template/providers/dashboard.dart';
+import 'package:template/providers.dart';
+import 'package:template/routes.dart';
+import 'package:template/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,26 +15,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        Provider(create: (context) => AuthProvider()),
-        Provider(create: (context) => DashboardProvider()),
-
-        ListenableProvider(create: (context) => AuthProvider()),
-        ListenableProvider(create: (context) => DashboardProvider()),
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      providers: providers,
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) => MaterialApp(
+          title: 'Template',
+          theme: theme,
+          initialRoute: '/',
+          routes: routes,
         ),
-        initialRoute: '/',
-        routes: {
-          '/':(context) {
-            var auth = context.watch<AuthProvider>();
-
-            return auth.authenticated ? const Dashboard() : const Login();
-          },
-        },
       ),
     );
   }

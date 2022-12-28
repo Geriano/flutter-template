@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:template/theme.dart';
 
 class AuthCard extends StatefulWidget {
   AuthCard({super.key, this.header, required this.body, this.footer});
@@ -14,45 +16,47 @@ class AuthCard extends StatefulWidget {
 class AuthCardState extends State<AuthCard> {
   @override
   Widget build(BuildContext context) {
+    var width = 300.sp;
+
     return Container(
+      width: width,
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
+        borderRadius: BorderRadius.all(
+          Radius.circular(8.sp),
         ),
-        color: Colors.grey.shade100,
+        color: theme.cardColor,
       ),
       child: Column(
         children: [
           if (widget.header != null) Container(
-            padding: const EdgeInsets.only(
-              top: 30,
-              right: 10,
-              left: 10,
-              bottom: 20,
+            padding: EdgeInsets.only(
+              top: 30.h,
+              right: 10.h,
+              left: 10.h,
+              bottom: 20.h,
             ),
             child: widget.header,
           ),
 
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30,
-              vertical: 30,
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.h,
+              vertical: 20.h,
             ),
-            width: MediaQuery.of(context).size.width,
+            width: width,
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(color: Colors.grey.shade300, width: widget.header != null ? 1 : 0),
                 bottom: BorderSide(color: Colors.grey.shade300, width: widget.footer != null ? 1 : 0),
               ),
-              color: Colors.grey.shade100,
             ),
             child: widget.body,
           ),
 
           if (widget.footer != null) Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 20,
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.h,
+              vertical: 20.h,
             ),
             child: widget.footer,
           ),
