@@ -9,12 +9,14 @@ class AuthInput extends StatefulWidget {
     required this.label, 
     this.obscureText = false, 
     this.autofocus = false,
+    this.error,
   });
 
   final TextEditingController controller;
   final String label;
   final bool obscureText;
   final bool autofocus;
+  final String? error;
 
   @override
   AuthInputState createState() => AuthInputState();
@@ -23,31 +25,50 @@ class AuthInput extends StatefulWidget {
 class AuthInputState extends State<AuthInput> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 5.h),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey.shade300,
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(8.h),
-        ),
-        color: theme.cardTheme.color,
-      ),
-      child: TextFormField(
-        autocorrect: false,
-        controller: widget.controller,
-        autofocus: widget.autofocus,
-        obscureText: widget.obscureText,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 10.h,
-            vertical: 2.h,
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 5.h),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: widget.error == null ? Colors.grey.shade300 : Colors.red,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.h),
+            ),
+            color: theme.cardTheme.color,
           ),
-          hintText: widget.label,
-          border: InputBorder.none,
+          child: TextFormField(
+            autocorrect: false,
+            controller: widget.controller,
+            autofocus: widget.autofocus,
+            obscureText: widget.obscureText,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 10.h,
+                vertical: 2.h,
+              ),
+              hintText: widget.label,
+              border: InputBorder.none,
+            ),
+          ),
         ),
-      ),
+        if (widget.error != null) Container(
+          margin: EdgeInsets.only(
+            bottom: 7.h,
+          ),
+          width: MediaQuery.of(context).size.width,
+          child: Text(
+            widget.error!, 
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 11.sp,
+            ),
+            overflow: TextOverflow.clip,
+            textAlign: TextAlign.end,
+          ),
+        ),
+      ],
     );
   }
 }
