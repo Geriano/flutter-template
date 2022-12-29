@@ -6,8 +6,7 @@ import 'package:template/backend/services.dart';
 
 const services = Services(
   scheme: Scheme.http,
-  hostname: 'localhost:3333',
-  prefix: '/api/v1',
+  hostname: '192.168.0.102:3333',
   services: {
     'auth': Service(
       routes: {
