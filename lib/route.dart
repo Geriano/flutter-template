@@ -34,7 +34,7 @@ Uri route({ required String service, required String route, Map<String, dynamic>
 
   final hostname = s.hostname ?? services.hostname;
   final path = r.path;
-  String fullpath = '/${services.prefix}/${s.prefix}/$path'.replaceAll(RegExp(r'/+'), '/');
+  String fullpath = '/${services.prefix ?? ""}/${s.prefix ?? ""}/$path'.replaceAll(RegExp(r'/+'), '/');
 
   Map<String, String> queries = {};
   Map<String, String> bindings = {};
