@@ -14,5 +14,8 @@ class PermissionModel extends Model {
     'name': name,
   };
 
-  static PermissionModel fromJson(Map<String, dynamic> data) => PermissionModel(id: int.parse(data['id']), name: data['name']);
+  static PermissionModel fromJson(Map<String, dynamic> data) => PermissionModel(
+    id: data['id'], 
+    name: data['name'].toString(),
+  );
 }

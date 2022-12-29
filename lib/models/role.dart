@@ -6,7 +6,7 @@ class RoleModel extends Model {
   RoleModel({ required this.id, required this.name, required this.permissions });
 
   final int id;
-  final int name;
+  final String name;
   final List<PermissionModel> permissions;
 
   @override
@@ -21,7 +21,7 @@ class RoleModel extends Model {
 
     return RoleModel(
       id: data['id'],
-      name: data['name'],
+      name: data['name'].toString(),
       permissions: permissions.map((permission) => PermissionModel.fromJson(permission as Map<String, dynamic>)).toList(),
     );
   }

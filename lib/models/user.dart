@@ -30,7 +30,7 @@ class UserModel extends Model {
     List<dynamic> permissions = data['permissions'];
 
     return UserModel(
-      id: int.parse(data['id']), 
+      id: data['id'], 
       name: data['name'], 
       email: data['email'], 
       username: data['username'], 
