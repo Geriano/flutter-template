@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:provider/provider.dart';
 import 'package:template/providers.dart';
 import 'package:template/routes.dart';
 import 'package:template/theme.dart';
+
+final localStorage = LocalStorage('template');
 
 void main() {
   runApp(const MyApp());
