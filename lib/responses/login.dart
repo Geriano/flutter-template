@@ -21,3 +21,5 @@ class LoginSuccessResponse extends Response {
     );
   }
 }
+
+class LoginByTokenFailResponse extends Response {}
