@@ -5,7 +5,7 @@ import 'package:template/responses/logout.dart';
 import 'package:template/responses/response.dart';
 import 'package:template/route.dart';
 
-class Logout extends Request {
+class LogoutRequest extends Request {
   Future<Response> execute() async {
     final url = route(service: 'auth', route: 'logout');
     final response = await delete(url);
