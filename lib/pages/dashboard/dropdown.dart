@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:template/pages/dashboard/dropdown_menu.dart';
 import 'package:template/providers/dashboard.dart';
 
 class TopbarDropdown extends StatelessWidget {
@@ -9,7 +10,6 @@ class TopbarDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     var dashboard = context.watch<DashboardProvider>();
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     
     return AnimatedPositioned(
       top: dashboard.topbarDropdown ? 5 : height * -1,
@@ -32,29 +32,17 @@ class TopbarDropdown extends StatelessWidget {
         ),
         child: Column(
           children: [
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.grey[800],
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-              ),
-              onPressed: () {}, 
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Color.fromRGBO(0, 0, 0, 0.2),
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: const [
-                    Icon(Icons.account_circle),
-                    SizedBox(width: 5),
-                    Text('Profile'),
-                  ],
-                ),
-              ),
+            DropdownMenu(
+              onPressed: () => Navigator.pushNamed(context, '/profile'),
+              icon: Icons.account_circle, 
+              text: 'Profile',
+            ),
+            DropdownMenu(
+              onPressed: () {
+                print('logout');
+              },
+              icon: Icons.logout, 
+              text: 'Logout',
             ),
           ],
         ),
