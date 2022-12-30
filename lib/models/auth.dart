@@ -11,6 +11,6 @@ class AuthModel extends Model {
   @override
   Map<String, dynamic> data() => {
     'token': token,
-    'user': user,
+    'user': user.data(),
   };
 }

@@ -21,8 +21,8 @@ class UserModel extends Model {
     'email': email,
     'username': username,
     'profile_photo_url': profilePhotoUrl,
-    'roles': roles,
-    'permissions': permissions,
+    'roles': roles.map((role) => role.data()).toList(),
+    'permissions': permissions.map((permission) => permission.data()).toList(),
   };
 
   static UserModel fromJson(Map<String, dynamic> data) {

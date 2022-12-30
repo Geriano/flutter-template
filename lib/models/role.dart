@@ -13,7 +13,7 @@ class RoleModel extends Model {
   Map<String, dynamic> data() => {
     'id': id,
     'name': name,
-    'permissions': permissions,
+    'permissions': permissions.map((permission) => permission.data()).toList(),
   };
 
   static RoleModel fromJson(Map<String, dynamic> data) {

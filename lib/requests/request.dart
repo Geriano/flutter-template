@@ -31,8 +31,6 @@ abstract class Request {
   Future<http.Response> _execute({ required Method method, required Uri url, Object? body, Headers? headers, Encoding? encoding }) async {
     http.Response response;
 
-    log('[${method.name}] $url', name: 'request');
-
     switch (method) {
       case Method.GET:
         response = await http.get(url, headers: _headers(headers ?? {}));
@@ -52,6 +50,8 @@ abstract class Request {
       default:
         throw ErrorDescription('Unsuported request menthod [${method.name}]');
     }
+
+    log('[${method.name}] ${response.statusCode} - $url', name: 'request');
 
     switch (response.statusCode) {
       case 401:
