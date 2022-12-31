@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:template/main.dart';
 import 'package:template/models/user.dart';
 import 'package:template/requests/request.dart';
 import 'package:template/responses/form_validation.dart';
@@ -15,9 +13,6 @@ class LoginRequest extends Request {
     try {
       final response = await post(url, body: { 'username': username, 'password': password });
       final success = LoginSuccessResponse.fromResponse(response);
-
-      Request.headers['Authorization'] = 'Bearer ${success.token}';
-      localStorage.setItem('token', success.token);
 
       return success;
     } catch (e) {
@@ -37,9 +32,6 @@ class LoginRequest extends Request {
         'Authorization': 'Bearer $token',
       });
 
-      Request.headers['Authorization'] = 'Bearer $token';
-      localStorage.setItem('token', token);
-
       return LoginSuccessResponse(
         token: token, 
         user: UserModel.fromJson(
@@ -47,7 +39,9 @@ class LoginRequest extends Request {
         )
       );
     } catch (e) {
-      localStorage.deleteItem('token');
+      if (e is HttpUnauthenticatedException) {
+        return LoginByTokenFailResponse();
+      }
 
       rethrow;
     }

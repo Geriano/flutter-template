@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:template/main.dart';
 import 'package:template/models/auth.dart';
 import 'package:template/models/user.dart';
-import 'package:template/requests/request.dart';
 
 class AuthProvider extends ChangeNotifier {
   UserModel? _user;
