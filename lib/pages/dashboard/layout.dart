@@ -25,7 +25,7 @@ class DashboardLayoutState extends State<DashboardLayout> {
   @override
   Widget build(BuildContext context) {
     var dashboard = context.watch<DashboardProvider>();
-    
+
     return Scaffold(
       key: scaffold,
       appBar: AppBar(
@@ -33,19 +33,33 @@ class DashboardLayoutState extends State<DashboardLayout> {
           Topbar(
             scaffold: scaffold,
             children: [
-              IconButton(
-                onPressed: () => scaffold.currentState!.openDrawer(), 
-                icon: const Icon(Icons.menu, color: Colors.white),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () => scaffold.currentState!.openDrawer(), 
+                    icon: const Icon(Icons.menu, color: Colors.white),
+                  ),
+                ],
               ),
 
-              Text(dashboard.page[0].toUpperCase() + dashboard.page.substring(1), style: TextStyle(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w700,
-              )),
-        
-              IconButton(
-                onPressed: dashboard.toggleTopbarDropdown, 
-                icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () {}, 
+                    icon: const Icon(Icons.notifications, color: Colors.white),
+                  ),
+
+                  IconButton(
+                    onPressed: () {}, 
+                    icon: const Icon(Icons.chat_rounded, color: Colors.white),
+                  ),
+
+                  IconButton(
+                    onPressed: dashboard.toggleTopbarDropdown, 
+                    icon: const Icon(Icons.account_circle, color: Colors.white),
+                  ),
+                ],
               ),
             ],
           ),
@@ -55,6 +69,16 @@ class DashboardLayoutState extends State<DashboardLayout> {
       backgroundColor: Colors.grey[300],
       drawer: DashboardDrawer(
         children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.h,
+              vertical: 10.h,
+            ),
+            child: Text('Template', style: TextStyle(
+              fontSize: 22.sp
+            )),
+          ),
+
           SidebarMenu(
             leading: const Icon(Icons.computer), 
             title: const Text('Dashboard'), 
