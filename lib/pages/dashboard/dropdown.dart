@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:template/pages/dashboard/dropdown_menu.dart';
 import 'package:template/providers/dashboard.dart';
-import 'package:template/requests/logout.dart';
 
-class TopbarDropdown extends StatelessWidget {
-  const TopbarDropdown({super.key});
+class TopbarDropdown extends StatefulWidget {
+  const TopbarDropdown({super.key, required this.children});
 
+  final List<Widget> children;
+
+  @override
+  TopbarDropdownState createState() => TopbarDropdownState();
+}
+
+class TopbarDropdownState extends State<TopbarDropdown> {
   @override
   Widget build(BuildContext context) {
     var dashboard = context.watch<DashboardProvider>();
@@ -32,23 +37,7 @@ class TopbarDropdown extends StatelessWidget {
           ],
         ),
         child: Column(
-          children: [
-            DropdownMenu(
-              onPressed: () => Navigator.pushNamed(context, '/profile'),
-              icon: Icons.account_circle, 
-              text: 'Profile',
-            ),
-            DropdownMenu(
-              onPressed: () {
-                LogoutRequest().execute()
-                                .whenComplete(() async {
-                                  Navigator.pushNamed(context, '/login');
-                                });
-              },
-              icon: Icons.logout, 
-              text: 'Logout',
-            ),
-          ],
+          children: widget.children,
         ),
       ),
     );
