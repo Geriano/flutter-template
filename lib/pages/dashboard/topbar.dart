@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:template/providers/dashboard.dart';
 
 class Topbar extends StatelessWidget {
-  const Topbar({super.key});
+  const Topbar({super.key, required this.scaffold});
+
+  final GlobalKey<ScaffoldState> scaffold;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class Topbar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            onPressed: dashboard.toggleSidebar, 
+            onPressed: () => scaffold.currentState!.openDrawer(), 
             icon: const Icon(Icons.menu, color: Colors.white),
           ),
 
