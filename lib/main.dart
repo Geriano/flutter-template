@@ -60,7 +60,7 @@ class TemplateState extends State<Template> {
               return MaterialPageRoute(
                 builder: (context) => FutureBuilder(
                   initialData: false,
-                  future: Future<String?>.delayed(const Duration(seconds: 1), () => localStorage!.getItem('token')),
+                  future: Future<String?>.delayed(const Duration(milliseconds: 1000), () => localStorage!.getItem('token')),
                   builder: (context, snapshot) {
                     if (snapshot.data == false) {
                       return loading;
