@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:template/pages/dashboard/dropdown_menu.dart';
 import 'package:template/providers/dashboard.dart';
+import 'package:template/requests/logout.dart';
 
 class TopbarDropdown extends StatelessWidget {
   const TopbarDropdown({super.key});
@@ -39,7 +40,10 @@ class TopbarDropdown extends StatelessWidget {
             ),
             DropdownMenu(
               onPressed: () {
-                print('logout');
+                LogoutRequest().execute()
+                                .whenComplete(() async {
+                                  Navigator.pushNamed(context, '/login');
+                                });
               },
               icon: Icons.logout, 
               text: 'Logout',

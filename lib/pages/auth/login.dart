@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:template/components/text_link.dart';
+import 'package:template/main.dart';
 import 'package:template/models/auth.dart';
 import 'package:template/pages/auth/button.dart';
 import 'package:template/pages/auth/card.dart';
@@ -21,8 +22,8 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
-  TextEditingController username = TextEditingController(text: 'su');
-  TextEditingController password = TextEditingController(text: 'password');
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
   final Map<String, String?> errors = {
     'username': null,
     'password': null,
@@ -46,10 +47,13 @@ class LoginState extends State<Login> {
           password.clear();
         });
       } else if (response is LoginSuccessResponse) {
-        auth.authenticateFromModel(AuthModel(
+        var model = auth.authenticateFromModel(AuthModel(
           response.token, 
           response.user,
         ));
+
+        Request.headers['Authorization'] = 'Bearer ${model.token}';
+        await localStorage!.setItem('token', model.token);
       }
     } catch (e) {
       if (e is HttpUnauthenticatedException) {
