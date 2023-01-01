@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:template/main.dart';
 import 'package:template/models/auth.dart';
 import 'package:template/pages/auth/login.dart';
-import 'package:template/pages/dashboard/index.dart';
 import 'package:template/pages/loading.dart';
 import 'package:template/providers/auth.dart';
 import 'package:template/requests/login.dart';
@@ -42,10 +41,21 @@ Route<dynamic>? generateRoute(AuthProvider auth, RouteSettings settings) {
             if (snapshot.data is LoginSuccessResponse) {
               var response = snapshot.data as LoginSuccessResponse;
               return FutureBuilder(
-                future: Future(() => auth.futureAuthenticateFromModel(
-                  AuthModel(response.token, response.user)
-                )),
-                builder: (context, snapshot) => routes[settings.name]!(context),
+                future: Future(() => auth.authenticated),
+                builder: (context, snapshot) {
+                  var route = routes[settings.name]!;
+
+                  if (auth.authenticated) {
+                    return route(context);
+                  }
+                  
+                  return FutureBuilder(
+                    future: Future(() => auth.futureAuthenticateFromModel(
+                      AuthModel(response.token, response.user)
+                    )),
+                    builder: (context, snapshot) => routes[settings.name]!(context),
+                  );
+                }
               );
             }
 

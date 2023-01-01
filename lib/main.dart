@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:template/generate_route.dart';
 import 'package:template/providers.dart';
 import 'package:template/providers/auth.dart';
+import 'package:template/routes.dart';
 import 'package:template/theme.dart';
 
 LocalStorage? localStorage;
@@ -43,7 +44,16 @@ class TemplateState extends State<Template> {
             title: 'Template',
             theme: theme,
             initialRoute: '/',
-            onGenerateRoute: (settings) => auth.authenticated ? null : generateRoute(auth, settings,),
+            onGenerateRoute: (settings) {
+              if (auth.authenticated) {
+                return MaterialPageRoute(
+                  builder: routes[settings.name]!,
+                  settings: settings,
+                );
+              }
+
+              return generateRoute(auth, settings);
+            },
           );
         },
       ),
