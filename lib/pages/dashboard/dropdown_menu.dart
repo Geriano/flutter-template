@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:template/providers/dashboard.dart';
 
 class DropdownMenu extends StatefulWidget {
   const DropdownMenu({super.key, required this.icon, required this.text, this.onPressed});
@@ -15,12 +17,20 @@ class DropdownMenu extends StatefulWidget {
 class DropdownMenuState extends State<DropdownMenu> {
   @override
   Widget build(BuildContext context) {
+    var dashboard = context.watch<DashboardProvider>();
+
     return TextButton(
       style: TextButton.styleFrom(
         foregroundColor: Colors.grey[800],
         padding: EdgeInsets.symmetric(horizontal: 15.h),
       ),
-      onPressed: widget.onPressed, 
+      onPressed: () {
+        dashboard.toggleTopbarDropdown();
+        
+        if (widget.onPressed != null) {
+          widget.onPressed!();
+        }
+      }, 
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 6.h),
         decoration: const BoxDecoration(
