@@ -10,7 +10,7 @@ class UserModel extends Model {
   final String name;
   final String email;
   final String username;
-  final String profilePhotoUrl;
+  final String? profilePhotoUrl;
   final List<RoleModel> roles;
   final List<PermissionModel> permissions;
 

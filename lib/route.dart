@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:template/backend/pagination_param.dart';
 import 'package:template/backend/services.dart';
@@ -92,4 +94,19 @@ Uri route({ required String service, required String route, Map<String, dynamic>
   return services.scheme == Scheme.https ?
           Uri.https(hostname, fullpath, queries.isEmpty ? null : queries) :
           Uri.http(hostname, fullpath, queries.isEmpty ? null : queries);
+}
+
+Uri staticRoute(String path) {
+  final hostname = services.hostname;
+  final prefix = services.prefix;
+  var fullpath = '/${prefix ?? ""}/$path';
+  fullpath = fullpath.replaceAll(RegExp(r'/+'), '/');
+  
+  var url = services.scheme == Scheme.http ?
+              Uri.http(hostname, fullpath) :
+              Uri.https(hostname, fullpath);
+
+  log(url.toString(), name: 'static path');
+
+  return url;
 }
